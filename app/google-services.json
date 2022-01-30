@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225692918974",
+    "project_id": "volunteernearmeapp",
+    "storage_bucket": "volunteernearmeapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225692918974:android:d5e9a3ad2b4c0f59bcaaef",
+        "android_client_info": {
+          "package_name": "Comp3200.volunteernearmeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225692918974-8t5gmn88d221t18jtjasaqdnptadie0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZoP5c7MCeD79czbUtQOw3F853XkXNNVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225692918974-8t5gmn88d221t18jtjasaqdnptadie0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

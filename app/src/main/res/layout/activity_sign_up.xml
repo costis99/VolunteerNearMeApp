@@ -108,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_username" />
 
     <CheckBox
-        android:id="@+id/checkbox_cheese"
+        android:id="@+id/checkbox"
         android:layout_width="239dp"
         android:layout_height="43dp"
         android:layout_marginTop="260dp"

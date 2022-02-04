@@ -49,17 +49,17 @@ class RegisterActivity : AppCompatActivity() {
         val emailInfo: TextView = findViewById(R.id.et_username);
         val password: TextView = findViewById(R.id.et_password);
         if (emailInfo.text.toString().isEmpty()) {
-            emailInfo.error = "Please enter email"
+            emailInfo.error = "Please enter your valid email"
             emailInfo.requestFocus()
             return
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(emailInfo.text.toString()).matches()) {
-            emailInfo.error = "Please enter a valid email"
+            emailInfo.error = "Please enter valid email"
             emailInfo.requestFocus()
             return
         }
         if (password.text.toString().isEmpty()) {
-            password.error = "Please enter password"
+            password.error = "Please enter a non empty password"
             password.requestFocus()
             return
         }
@@ -85,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
                                     role = "Volunteer"
                                     database.child("users").child(userId).setValue("Volunteer")
                                 }
-                                // Create a new user with a role email
+                                // Create a new user with a role and email
                                 val user = hashMapOf(
                                     "Email ID" to emailInfo.text.toString(),
                                     "Role" to role
@@ -99,15 +99,12 @@ class RegisterActivity : AppCompatActivity() {
                                     .addOnFailureListener { e ->
                                         Log.w(TAG, "Error adding document", e)
                                     }
-                                startActivity(Intent(this, LoginActivity::class.java))
+                                startActivity(Intent(this, MainActivity::class.java))
                                 finish()
                             }
                         }
                 } else {
-                    Toast.makeText(
-                        baseContext, "Sign up failed. Try again later.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(baseContext, "Error registering", Toast.LENGTH_SHORT).show()
                 }
             }
     }

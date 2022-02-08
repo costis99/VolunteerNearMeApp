@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VolunteerNearMeApp">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GOOGLE_MAPS_API_KEY}" />
         <activity android:name=".LoadingScreenActivity"
             android:theme="@style/Theme.LoadingScreen">
             <intent-filter>
@@ -20,6 +23,10 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ForgotPassActivity"/>
+        <activity android:name=".HomeOrganizersActivity"/>
+        <activity android:name=".HomeVolunteersActivity"/>
+        <activity android:name=".ViewEventsActivity"/>
+        <activity android:name=".CreateEventActivity"/>
     </application>
 
 </manifest>

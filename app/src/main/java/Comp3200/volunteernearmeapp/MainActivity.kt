@@ -1,5 +1,6 @@
 package Comp3200.volunteernearmeapp
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,17 +13,22 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     //Initial commit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         auth = Firebase.auth
+        mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
+
+        val user=FirebaseAuth.getInstance().currentUser
 
         val reg: TextView = findViewById(R.id.tv_registerHere)
         reg.setOnClickListener{
@@ -66,19 +72,37 @@ class MainActivity : AppCompatActivity() {
                     //read from database if volunteer or organizer and show appropriate home screen
                     database = Firebase.database.reference
                     val user = Firebase.auth.currentUser
-                    var userId = user?.uid
+                    val userId = user?.uid
                     if (userId != null) {
-                        database.child("users").child(userId).get().addOnSuccessListener {
-                            Log.i("firebase", "Got value ${it.value}")
-                            if(it.value.toString() == "Volunteer") {
-                                startActivity(Intent(this, MainActivity::class.java))
+//                        val docRef=mFirebaseDatabaseInstance?.collection("users")?.document(userId)
+
+                        val docRef = mFirebaseDatabaseInstance?.collection("users")?.document(userId)
+//                        docRef?.get()?.addOnSuccessListener { documentSnapshot ->
+//                            val city = documentSnapshot.toObject<City>()
+//                        }
+                        docRef?.get()?.addOnSuccessListener { document ->
+                            Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                            val role = document.data?.getValue("Role")
+                            if (role.toString().equals("Volunteer")){
+                                startActivity(Intent(this, HomeVolunteersActivity::class.java))
                                 finish()
                             }
-                            if(it.value.toString() == "Organizer"){
-                                startActivity(Intent(this, MainActivity::class.java))
+                            if(role.toString().equals("Organizer")){
+                                startActivity(Intent(this, HomeOrganizersActivity::class.java))
                                 finish()
                             }
-                        }.addOnFailureListener{
+                        }
+//                        database.child("users").child(userId).get().addOnSuccessListener {
+//                            Log.i("firebase", "Got value ${it.value}")
+//                            if(it.value.toString() == "Volunteer") {
+//                                startActivity(Intent(this, HomeVolunteersActivity::class.java))
+//                                finish()
+//                            }
+//                            if(it.value.toString() == "Organizer"){
+//                                startActivity(Intent(this, HomeOrganizersActivity::class.java))
+//                                finish()
+//                            }
+                        ?.addOnFailureListener{
                             Log.e("firebase", "Error getting data", it)
                         }
                     }

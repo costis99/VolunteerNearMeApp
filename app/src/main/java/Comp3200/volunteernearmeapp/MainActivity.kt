@@ -19,26 +19,30 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+
+    //Create Firebase Firestore instance
+    private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
+
     //Initial commit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         auth = Firebase.auth
-        mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
-        val user=FirebaseAuth.getInstance().currentUser
-
+        val user = FirebaseAuth.getInstance().currentUser
+        // If user clicks on the sign up button go to the register activity
         val reg: TextView = findViewById(R.id.tv_registerHere)
-        reg.setOnClickListener{
+        reg.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+        // If user clicks on the forgot password button go to the forgot password activity
         val forgotPass: TextView = findViewById(R.id.tv_forgotPassword)
-        forgotPass.setOnClickListener{
+        forgotPass.setOnClickListener {
             startActivity(Intent(this, ForgotPassActivity::class.java))
         }
-
+        // If the user clicks on the login button log the user in if the credentials are correct
         val login: Button = findViewById(R.id.LoginButton)
         login.setOnClickListener {
             loginUser()
@@ -48,69 +52,69 @@ class MainActivity : AppCompatActivity() {
     private fun loginUser() {
         val emailInfo: TextView = findViewById(R.id.et_username);
         val password: TextView = findViewById(R.id.et_password);
+        // Check if email is empty
         if (emailInfo.text.toString().isEmpty()) {
             emailInfo.error = "Please enter your valid email"
             emailInfo.requestFocus()
             return
         }
+        //Check if email is valid
         if (!Patterns.EMAIL_ADDRESS.matcher(emailInfo.text.toString()).matches()) {
             emailInfo.error = "Please enter valid email"
             emailInfo.requestFocus()
             return
         }
+        //Check if password is empty
         if (password.text.toString().isEmpty()) {
             password.error = "Please enter a non empty password"
             password.requestFocus()
             return
         }
-
-        auth.signInWithEmailAndPassword(emailInfo.text.toString(), password.text.toString()).addOnCompleteListener(this) {
-                task ->
-            if(task.isSuccessful){
-                val currentUser = auth.currentUser
-                if(currentUser != null && currentUser.isEmailVerified){
-                    //read from database if volunteer or organizer and show appropriate home screen
-                    database = Firebase.database.reference
-                    val user = Firebase.auth.currentUser
-                    val userId = user?.uid
-                    if (userId != null) {
-//                        val docRef=mFirebaseDatabaseInstance?.collection("users")?.document(userId)
-
-                        val docRef = mFirebaseDatabaseInstance?.collection("users")?.document(userId)
-//                        docRef?.get()?.addOnSuccessListener { documentSnapshot ->
-//                            val city = documentSnapshot.toObject<City>()
-//                        }
-                        docRef?.get()?.addOnSuccessListener { document ->
-                            Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                            val role = document.data?.getValue("Role")
-                            if (role.toString().equals("Volunteer")){
-                                startActivity(Intent(this, HomeVolunteersActivity::class.java))
-                                finish()
+        // Using firebase sign in method try to sign in the user
+        auth.signInWithEmailAndPassword(emailInfo.text.toString(), password.text.toString())
+            .addOnCompleteListener(this) { task ->
+                //Check if signin is successful
+                if (task.isSuccessful) {
+                    val currentUser = auth.currentUser
+                    //Check if user verified email used in sign up
+                    if (currentUser != null && currentUser.isEmailVerified) {
+                        //Read from database if user if volunteer or organizer and show appropriate home screen
+                        database = Firebase.database.reference
+                        val user = Firebase.auth.currentUser
+                        val userId = user?.uid
+                        if (userId != null) {
+                            val docRef =
+                                mFirebaseDatabaseInstance?.collection("users")?.document(userId)
+                            docRef?.get()?.addOnSuccessListener { document ->
+                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                                val role = document.data?.getValue("Role")
+                                if (role.toString().equals("Volunteer")) {
+                                    startActivity(Intent(this, HomeVolunteersActivity::class.java))
+                                    finish()
+                                }
+                                if (role.toString().equals("Organizer")) {
+                                    startActivity(Intent(this, HomeOrganizersActivity::class.java))
+                                    finish()
+                                }
                             }
-                            if(role.toString().equals("Organizer")){
-                                startActivity(Intent(this, HomeOrganizersActivity::class.java))
-                                finish()
-                            }
+                                //Show appropriate message when data is not read correctly
+                                ?.addOnFailureListener {
+                                    Log.e("firebase", "Error getting data", it)
+                                }
                         }
-//                        database.child("users").child(userId).get().addOnSuccessListener {
-//                            Log.i("firebase", "Got value ${it.value}")
-//                            if(it.value.toString() == "Volunteer") {
-//                                startActivity(Intent(this, HomeVolunteersActivity::class.java))
-//                                finish()
-//                            }
-//                            if(it.value.toString() == "Organizer"){
-//                                startActivity(Intent(this, HomeOrganizersActivity::class.java))
-//                                finish()
-//                            }
-                        ?.addOnFailureListener{
-                            Log.e("firebase", "Error getting data", it)
-                        }
+                    } else {
+                        //Show appropriate message if email was not verified
+                        Toast.makeText(
+                            baseContext,
+                            "Email is not verified yet!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                } else {
+                    //If credentials are incorrect show appropriate message to the user
+                    Toast.makeText(baseContext, "Wrong email or password.", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                else{
-                    Toast.makeText(baseContext, "Email is not verified yet!", Toast.LENGTH_SHORT).show()
-                }
-           }
-        }
+            }
     }
 }

@@ -19,6 +19,7 @@ class ForgotPassActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot_pass)
         auth = Firebase.auth
         val buttonReset: Button = findViewById(R.id.ResetButton)
+        //When the reset button is clicked
         buttonReset.setOnClickListener {
             resetPass()
         }
@@ -26,27 +27,32 @@ class ForgotPassActivity : AppCompatActivity() {
 
     private fun resetPass() {
         val email: TextView = findViewById(R.id.et_email)
-        // check if email is empty
-        if(email.text.toString().isEmpty()){
+        //Check if email input of the user is empty
+        if (email.text.toString().isEmpty()) {
             email.error = "Please enter an email"
             return
         }
-        // check if email is valid
-        if(!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
+        //Check if email is valid
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()) {
             email.error = "Please enter a valid email"
             return
         }
 
-        // send email to user with change password option
+        //Send the appropriate email to the user in order to change password
         Firebase.auth.sendPasswordResetEmail(email.text.toString())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this,"An email has been sent with instructions to reset your password", Toast.LENGTH_SHORT).show()
+                    //If email was sent successfully show user appropriate message
+                    Toast.makeText(
+                        this,
+                        "An email has been sent with instructions to reset your password",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
-                }
-                else {
-                    Toast.makeText(this,"Error resetting password", Toast.LENGTH_SHORT).show()
+                } else {
+                    //If email was not sent successfully show user appropriate message
+                    Toast.makeText(this, "Error resetting password", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }

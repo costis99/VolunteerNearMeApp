@@ -34,7 +34,8 @@ class RegisterActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
         fStore = Firebase.firestore
-        val tickBox: CheckBox= findViewById(R.id.checkbox)
+        //When user clicks on organizer check box allow user to add name of organization
+        val tickBox: CheckBox = findViewById(R.id.checkbox)
         tickBox.setOnClickListener {
             val orgName: EditText = findViewById(R.id.et_organization_name)
             orgName.isVisible = true
@@ -48,63 +49,78 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser() {
         val emailInfo: TextView = findViewById(R.id.et_username);
         val password: TextView = findViewById(R.id.et_password);
+        //Check if email is empty
         if (emailInfo.text.toString().isEmpty()) {
             emailInfo.error = "Please enter your valid email"
             emailInfo.requestFocus()
             return
         }
+        //Check if email is valid
         if (!Patterns.EMAIL_ADDRESS.matcher(emailInfo.text.toString()).matches()) {
             emailInfo.error = "Please enter valid email"
             emailInfo.requestFocus()
             return
         }
+        //Check if password is empty
         if (password.text.toString().isEmpty()) {
             password.error = "Please enter a non empty password"
             password.requestFocus()
             return
         }
+        //Create user using firebase method (email and password)
         auth.createUserWithEmailAndPassword(emailInfo.text.toString(), password.text.toString())
             .addOnCompleteListener(this) { task ->
+                //check if user creation was successful
                 if (task.isSuccessful) {
                     val user = Firebase.auth.currentUser
+                    //send email verification to the registered email
                     user!!.sendEmailVerification()
                         .addOnCompleteListener { task ->
+                            //If email verification was sent show to the user appropriate message
                             if (task.isSuccessful) {
-                                Toast.makeText(baseContext,"Registered successfuly. " + "Verification email has been sent!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    baseContext,
+                                    "Registered successfuly. " + "Verification email has been sent!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
                                 userId = user.uid
-                                val tickBox: CheckBox= findViewById(R.id.checkbox)
+                                val tickBox: CheckBox = findViewById(R.id.checkbox)
                                 val orgName: EditText = findViewById(R.id.et_organization_name)
                                 database = Firebase.database.reference
-                                if(tickBox.isChecked && !orgName.text.isEmpty()){
+                                //Check if user is registered as an Organizer or a Volunteer and add it to the database
+                                if (tickBox.isChecked && !orgName.text.isEmpty()) {
                                     role = "Organizer"
                                     database.child("users").child(userId).setValue("Organizer")
-                                }
-
-                                else{
+                                } else {
                                     role = "Volunteer"
                                     database.child("users").child(userId).setValue("Volunteer")
                                 }
-                                // Create a new user with a role and email
                                 val user = hashMapOf(
                                     "Email ID" to emailInfo.text.toString(),
                                     "Role" to role
                                 )
                                 val documentReference: DocumentReference =
                                     fStore.collection("users").document(userId)
-                                // Add a new document with a generated ID
-                                documentReference.set(user).addOnSuccessListener { documentReference ->
-                                        Log.d(TAG, "DocumentSnapshot added with ID: $userId")
+                                documentReference.set(user)
+                                    .addOnSuccessListener { documentReference ->
+                                        Log.d(TAG, "Added to database successfully")
                                     }
-                                    .addOnFailureListener { e ->
-                                        Log.w(TAG, "Error adding document", e)
+                                    .addOnFailureListener { error ->
+                                        Log.w(TAG, "Error", error)
                                     }
+                                //When user has registered successfully return the user to the Login page
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finish()
                             }
                         }
                 } else {
-                    Toast.makeText(baseContext, "Error registering", Toast.LENGTH_SHORT).show()
+                    //Show to the user appropriate message when registration failed
+                    Toast.makeText(
+                        baseContext,
+                        "There was an error while registering. Please try again!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

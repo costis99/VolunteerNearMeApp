@@ -14,16 +14,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 
-class CreateEventActivity: AppCompatActivity() {
+class CreateEventActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
-    private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+
+    //Create Firebase Firestore instance
+    private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
         auth = Firebase.auth
-        mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
         val createEv: Button = findViewById(R.id.CreateButton)
         createEv.setOnClickListener {
             creatorOfEvents()
@@ -39,38 +40,37 @@ class CreateEventActivity: AppCompatActivity() {
 
         val la: Double = latit.getText().toString().toDouble()
         val eventDesc: TextView = findViewById(R.id.et_eventDesc)
-
+        //Check if name of event is empty and show appropriate message to the user
         if (nameOfEvent.text.toString().isEmpty()) {
-            nameOfEvent.error = "Please enter a non empty password"
+            nameOfEvent.error = "Please enter a non empty name of event"
             nameOfEvent.requestFocus()
             return
         }
-
+        //Check if address of event is empty and show appropriate message to the user
         if (addressOfEvent.text.toString().isEmpty()) {
-            addressOfEvent.error = "Please enter a non empty password"
+            addressOfEvent.error = "Please enter a non empty address"
             addressOfEvent.requestFocus()
             return
         }
-
+        //Check if longitude is empty and show appropriate message to the user
         if (longit.text.toString().isEmpty()) {
-            longit.error = "Please enter a non empty password"
+            longit.error = "Please enter a non empty longitude"
             longit.requestFocus()
             return
         }
-
+        //Check if latitude is empty and show appropriate message to the user
         if (latit.text.toString().isEmpty()) {
-            latit.error = "Please enter a non empty password"
+            latit.error = "Please enter a non empty latitude"
             latit.requestFocus()
             return
         }
+        //Check if event description is empty and show appropriate message to the user
         if (eventDesc.text.toString().isEmpty()) {
-            eventDesc.error = "Please enter a non empty password"
+            eventDesc.error = "Please enter a non empty event Description"
             eventDesc.requestFocus()
             return
         }
-
-
-        database = Firebase.database.reference
+        //Make a hashmap of the data that are going to be added to the database
         val ev = hashMapOf(
             "Name" to nameOfEvent.text.toString(),
             "Latitude" to la,
@@ -78,11 +78,15 @@ class CreateEventActivity: AppCompatActivity() {
             "Vicinity" to addressOfEvent.text.toString(),
             "Description" to eventDesc.text.toString()
         )
+        //Add the event creation hashmap to the database
         val user = Firebase.auth.currentUser
         val userId = user?.uid
         val rand = (100000000..10000000000000).random()
         if (userId != null) {
-            mFirebaseDatabaseInstance?.collection("eventsPending")?.document(rand.toString())?.set(ev)}
+            mFirebaseDatabaseInstance?.collection("eventsPending")?.document(rand.toString())
+                ?.set(ev)
+        }
+        //Once the event is added go back to Home Activity
         Toast.makeText(baseContext, "Event is added!", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, HomeOrganizersActivity::class.java))
         finish()

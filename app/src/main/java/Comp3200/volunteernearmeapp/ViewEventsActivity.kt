@@ -28,7 +28,7 @@ class ViewEventsActivity : AppCompatActivity() {
 
     }
 
-    //Add event marker from drawble folder
+    //Add event marker from drawable folder
     private val logoMark: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(this, R.color.design_default_color_primary)
         BitmapHelper.vectorToBitmap(this, R.drawable.ic_baseline_location_on_24, color)

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/logo"
+        android:title="logo"
+        android:icon="@drawable/logo"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/profile_view_org"
+        android:icon="@drawable/personicon"
+        android:title="View Profile"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/home_page"
+        android:title="Home page"
+        app:showAsAction="never"/>
+    <item android:id="@+id/view_events"
+        android:title="View Events"
+        app:showAsAction="never"/>
+    <item android:id="@+id/create_event"
+        android:title="Create Event"
+        app:showAsAction="never"/>
+    <item android:id="@+id/view_donations"
+        android:title="View Donation Options"
+        app:showAsAction="never"/>
+    <item android:id="@+id/create_donation"
+        android:title="Create Donation"
+        app:showAsAction="never"/>
+    <item android:id="@+id/Chat"
+        android:title="Chat"
+        app:showAsAction="never"/>
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        app:showAsAction="never"/>
+</menu>

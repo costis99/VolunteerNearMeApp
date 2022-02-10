@@ -4,26 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFA500"
+    android:background="#ADD8E6"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/Logo"
-        android:layout_width="219dp"
-        android:layout_height="70dp"
+        android:layout_width="208dp"
+        android:layout_height="123dp"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="37dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.635"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:layout_width="338dp"
-        android:layout_height="167dp"
-        android:text="@string/welcome_to_the_volunteer_near_me_app"
+        android:layout_width="333dp"
+        android:layout_height="91dp"
+        android:text="Welcome!"
         android:textAlignment="center"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.062" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <TextView
         android:layout_width="118dp"

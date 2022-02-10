@@ -27,6 +27,8 @@
         <activity android:name=".HomeVolunteersActivity"/>
         <activity android:name=".ViewEventsActivity"/>
         <activity android:name=".CreateEventActivity"/>
+        <activity android:name=".EditProfileActivity"/>
+        <activity android:name=".ProfileViewActivity"/>
     </application>
 
 </manifest>

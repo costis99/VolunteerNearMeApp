@@ -2,6 +2,8 @@ package Comp3200.volunteernearmeapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,5 +27,28 @@ class HomeVolunteersActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main_volunteers, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id = item.itemId
+        if (id == R.id.profile_view) {
+//            val intent = Intent(this@HomeVolunteersActivity, ProfileActivity::class.java)
+//            intent.putExtra("memberName", userName)
+//            startActivity(intent)
+            return true
+        } else if (id == R.id.view_events){
+            startActivity(Intent(this, ViewEventsActivity::class.java))
+            finish()
+        } else if(id == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

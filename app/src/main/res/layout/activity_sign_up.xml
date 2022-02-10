@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFA500"
+    android:background="#ADD8E6"
     tools:context=".MainActivity">
 
     <ImageView
@@ -53,7 +53,7 @@
         android:layout_height="68dp"
         android:text="Thank you for joining our journey of making the world a better place!"
         android:textAlignment="center"
-        android:textColor="#ADD8E6"
+        android:textColor="#006400"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

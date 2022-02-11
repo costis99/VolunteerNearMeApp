@@ -31,6 +31,14 @@ class ProfileViewActivity: AppCompatActivity()  {
         editProfile.setOnClickListener {
             startActivity(Intent(this, EditProfileActivity::class.java))
         }
+        val resetPass: Button = findViewById(R.id.changePassword)
+        resetPass.setOnClickListener {
+            startActivity(Intent(this, ForgotPassActivity::class.java))
+        }
+        val resetEmail:Button = findViewById(R.id.changeEmail)
+        resetEmail.setOnClickListener {
+            startActivity(Intent(this, ChangeEmailActivity::class.java))
+        }
     }
 
     private fun addToUserProfile(email: TextView, nickname: TextView, role: TextView) {

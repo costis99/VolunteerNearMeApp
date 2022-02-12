@@ -4,8 +4,11 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -62,5 +65,67 @@ class ProfileViewActivity: AppCompatActivity()  {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val user = Firebase.auth.currentUser
+        val userId = user?.uid
+        if (userId != null) {
+            fStore.collection("users").document(userId).get().addOnSuccessListener { result ->
+                if (result.get("Role").toString().equals("Organizer")) {
+                    menuInflater.inflate(R.menu.menu_main_organizers, menu)
+                } else {
+                    menuInflater.inflate(R.menu.menu_main_volunteers, menu)
+                }
+            }
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val user = Firebase.auth.currentUser
+        val userId = user?.uid
+        if (userId != null) {
+            fStore.collection("users").document(userId).get().addOnSuccessListener { result ->
+                if (result.get("Role").toString().equals("Organizer")) {
+                    var id = item.itemId
+
+                    if (id == R.id.logo) {
+                    } else if (id == R.id.profile_view_org) {
+                        val intent = Intent(this, ProfileViewActivity::class.java)
+                        startActivity(intent)
+                    } else if (id == R.id.view_events) {
+                        startActivity(Intent(this, ViewEventsActivity::class.java))
+                        finish()
+                    } else if (id == R.id.create_event) {
+                        startActivity(Intent(this, ViewEventsActivity::class.java))
+                        finish()
+                    } else if (id == R.id.logout) {
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                } else {
+                    var id = item.itemId
+
+                    if (id == R.id.logo) {
+                    } else if (id == R.id.profile_view) {
+                        val intent = Intent(this, ProfileViewActivity::class.java)
+                        startActivity(intent)
+                    } else if (id == R.id.view_events) {
+                        startActivity(Intent(this, ViewEventsActivity::class.java))
+                        finish()
+                    } else if (id == R.id.logout) {
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                }
+            }
+
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

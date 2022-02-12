@@ -34,12 +34,12 @@ class HomeVolunteersActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var id = item.itemId
-        if (id == R.id.profile_view) {
-//            val intent = Intent(this@HomeVolunteersActivity, ProfileActivity::class.java)
-//            intent.putExtra("memberName", userName)
-//            startActivity(intent)
-            return true
-        } else if (id == R.id.view_events){
+
+        if (id == R.id.logo) {
+        } else if (id == R.id.profile_view){
+            val intent = Intent(this@HomeVolunteersActivity, ProfileViewActivity::class.java)
+            startActivity(intent)
+        } else if (id == R.id.view_events) {
             startActivity(Intent(this, ViewEventsActivity::class.java))
             finish()
         } else if(id == R.id.logout){

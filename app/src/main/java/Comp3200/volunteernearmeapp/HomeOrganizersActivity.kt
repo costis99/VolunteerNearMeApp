@@ -42,14 +42,8 @@ class HomeOrganizersActivity : AppCompatActivity() {
         var id = item.itemId
 
         if (id == R.id.logo) {
-            val intent = Intent(this@HomeOrganizersActivity, EditProfileActivity::class.java)
-//            intent.putExtra("memberName", userName)
-            startActivity(intent)
-            return true
         } else if (id == R.id.profile_view_org){
-            System.out.println("LOOOOOOOOOOOOOOOO")
             val intent = Intent(this@HomeOrganizersActivity, ProfileViewActivity::class.java)
-//            intent.putExtra("memberName", userName)
             startActivity(intent)
         } else if (id == R.id.view_events) {
             startActivity(Intent(this, ViewEventsActivity::class.java))

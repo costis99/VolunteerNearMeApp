@@ -29,6 +29,7 @@
         <activity android:name=".CreateEventActivity"/>
         <activity android:name=".EditProfileActivity"/>
         <activity android:name=".ProfileViewActivity"/>
+        <activity android:name=".ChangeEmailActivity"/>
     </application>
 
 </manifest>

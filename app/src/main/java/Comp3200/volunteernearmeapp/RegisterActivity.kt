@@ -98,6 +98,7 @@ class RegisterActivity : AppCompatActivity() {
                                 }
                                 val user = hashMapOf(
                                     "Email ID" to emailInfo.text.toString(),
+                                    "Nickname" to "",
                                     "Role" to role
                                 )
                                 val documentReference: DocumentReference =

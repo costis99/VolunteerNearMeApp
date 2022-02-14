@@ -90,14 +90,18 @@ class ProfileViewActivity: AppCompatActivity()  {
                     var id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.profile_view_org) {
+                    } else if (id == R.id.home_page){
+                        startActivity(Intent(this, HomeOrganizersActivity::class.java))
+                        finish()
+                    }
+                    else if (id == R.id.profile_view_org) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
                         startActivity(Intent(this, ViewEventsActivity::class.java))
                         finish()
                     } else if (id == R.id.create_event) {
-                        startActivity(Intent(this, ViewEventsActivity::class.java))
+                        startActivity(Intent(this, CreateEventActivity::class.java))
                         finish()
                     } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
@@ -109,7 +113,11 @@ class ProfileViewActivity: AppCompatActivity()  {
                     var id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.profile_view) {
+                    } else if (id == R.id.home_page){
+                        startActivity(Intent(this, HomeVolunteersActivity::class.java))
+                        finish()
+                    }
+                    else if (id == R.id.profile_view) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {

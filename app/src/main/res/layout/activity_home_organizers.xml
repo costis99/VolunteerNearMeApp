@@ -7,8 +7,9 @@
     android:background="#ADD8E6">
 
     <TextView
-        android:layout_width="334dp"
-        android:layout_height="60dp"
+        android:id="@+id/hello_org"
+        android:layout_width="367dp"
+        android:layout_height="159dp"
         android:text="Hello Organizer!"
         android:textAlignment="center"
         android:textSize="35sp"

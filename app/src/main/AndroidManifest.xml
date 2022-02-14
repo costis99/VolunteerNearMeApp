@@ -23,13 +23,18 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ForgotPassActivity"/>
-        <activity android:name=".HomeOrganizersActivity"/>
-        <activity android:name=".HomeVolunteersActivity"/>
+        <activity android:name=".HomeOrganizersActivity"
+            android:noHistory="true" />
+        <activity android:name=".HomeVolunteersActivity"
+            android:noHistory="true"/>
         <activity android:name=".ViewEventsActivity"/>
         <activity android:name=".CreateEventActivity"/>
-        <activity android:name=".EditProfileActivity"/>
-        <activity android:name=".ProfileViewActivity"/>
-        <activity android:name=".ChangeEmailActivity"/>
+        <activity android:name=".EditProfileActivity"
+            android:noHistory="true"/>
+        <activity android:name=".ProfileViewActivity"
+            android:noHistory="true"/>
+        <activity android:name=".ChangeEmailActivity"
+            android:noHistory="true"/>
     </application>
 
 </manifest>

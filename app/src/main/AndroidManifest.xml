@@ -35,6 +35,8 @@
             android:noHistory="true"/>
         <activity android:name=".ChangeEmailActivity"
             android:noHistory="true"/>
+        <activity android:name=".CreateDonationActivity"/>
+        <activity android:name=".ViewDonationsActivity"/>
     </application>
 
 </manifest>

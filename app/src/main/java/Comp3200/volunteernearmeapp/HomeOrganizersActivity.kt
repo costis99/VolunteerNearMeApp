@@ -46,6 +46,14 @@ class HomeOrganizersActivity : AppCompatActivity() {
         createEvent.setOnClickListener {
             startActivity(Intent(this, CreateEventActivity::class.java))
         }
+        val viewDonation: Button = findViewById(R.id.ViewDonationsButton)
+        viewDonation.setOnClickListener {
+            startActivity(Intent(this, ViewDonationsActivity::class.java))
+        }
+        val createDonation: Button = findViewById(R.id.CreateDonationButton)
+        createDonation.setOnClickListener {
+            startActivity(Intent(this, CreateDonationActivity::class.java))
+        }
         // If the organizer clicks on the logout button log the organizer out of the system and return to the
         // login page
         val logout: Button = findViewById(R.id.LogOutButton)
@@ -77,7 +85,11 @@ class HomeOrganizersActivity : AppCompatActivity() {
         } else if (id == R.id.create_event){
             startActivity(Intent(this, CreateEventActivity::class.java))
             finish()
-        } else if(id == R.id.logout){
+        } else if (id == R.id.view_donations){
+            startActivity(Intent(this, ViewDonationsActivity::class.java))
+            finish()
+        }
+        else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))

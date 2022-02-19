@@ -3,4 +3,11 @@
     <string name="welcome_to_the_volunteer_near_me_app">Welcome to the Volunteer Near Me App!</string>
     <string name="login">Login</string>
     <string name="tick_if_you_are_an_organizer">Tick if you are an organizer</string>
+    <string name="type_message">Type message...</string>
+    <string name="type_a_message">Type a message...</string>
+    <string name="_12_00">12:00</string>
+    <string name="hello_how_are_you">Hello how are you?</string>
+    <string name="constantinos_papavasiliou">Constantinos Papavasiliou</string>
+    <string name="user_icon">User Icon</string>
+    <string name="this_is_my_message">This is my message</string>
 </resources>

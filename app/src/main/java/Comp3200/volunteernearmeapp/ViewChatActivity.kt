@@ -2,82 +2,53 @@ package Comp3200.volunteernearmeapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ViewEventsActivity : AppCompatActivity() {
-    //firestore instance
-    var mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+class ViewChatActivity: AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+
+    private val listOfChat = ArrayList<MessageType>()
+    private val messageAdapter = MessageAdapter(listOfChat)
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_events)
         fStore = Firebase.firestore
-        //create map fragment
-        val mapFragment = supportFragmentManager.findFragmentById(
-            R.id.map_fragment
-        ) as? SupportMapFragment
-        mapFragment?.getMapAsync { googleMap ->
-            addMarkers(googleMap)
-            // Set custom info window adapter
-            googleMap.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
-        }
+        auth = Firebase.auth
 
-    }
-
-    //Add event marker from drawable folder
-    private val logoMark: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(this, R.color.design_default_color_primary)
-        BitmapHelper.vectorToBitmap(this, R.drawable.ic_baseline_location_on_24, color)
-    }
-
-    /**
-     * Adds marker representations of the places list on the provided GoogleMap object
-     */
-    private fun addMarkers(googleMap: GoogleMap) {
-        //Loop through the database of events
-        mFirebaseDatabaseInstance.collection("eventsPending")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    //get longitude and latitude of each event and create a LatLng object
-                    val landl = LatLng(
-                        document.data.getValue("Latitude") as Double,
-                        document.data.getValue("Longitude") as Double
-                    )
-                    val place = Place(
-                        document.data.getValue("Name") as String,
-                        landl,
-                        document.data.getValue("Vicinity").toString(),
-                        document.data.getValue("Description").toString()
-                    )
-                    //Add marker in the map
-                    val marker =
-                        googleMap.addMarker(
-                            MarkerOptions()
-                                .title("Place name")
-                                .position(landl)
-                                .icon(logoMark)
-                        )
-
-                    // Set place as the tag on the marker object so it can be referenced within
-                    // MarkerInfoWindowAdapter
-                    marker.tag = place
-                }
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_chat)
+        //create a list of all the messages
+        listOfMessages()
+        val sender: ImageView = findViewById(R.id.send_chat_button)
+        val msg: EditText=findViewById(R.id.typer)
+        //When the user tries to send a new message in the chat
+        //check if message is empty
+        //else send it
+        sender.setOnClickListener {
+            val textMsg = msg.text.toString()
+            if (textMsg == "") {
+                Toast.makeText(this, "Message empty!", Toast.LENGTH_SHORT).show()
+            } else {
+                msgSender(textMsg)
+                msg.text.clear()
             }
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val user = Firebase.auth.currentUser
@@ -100,7 +71,7 @@ class ViewEventsActivity : AppCompatActivity() {
         if (userId != null) {
             fStore.collection("users").document(userId).get().addOnSuccessListener { result ->
                 if (result.get("Role").toString().equals("Organizer")) {
-                    var id = item.itemId
+                    val id = item.itemId
 
                     if (id == R.id.logo) {
                     } else if (id == R.id.home_page){
@@ -132,7 +103,7 @@ class ViewEventsActivity : AppCompatActivity() {
                         finish()
                     }
                 } else {
-                    var id = item.itemId
+                    val id = item.itemId
 
                     if (id == R.id.logo) {
                     } else if (id == R.id.home_page){
@@ -164,5 +135,52 @@ class ViewEventsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
+    private fun msgSender(message: String) {
+        //find time of current message
+        val timeOfMessage = Date(Timestamp.now().seconds*1000).toLocaleString()
+        //associate message with current userID
+        val userId = auth.currentUser!!.uid
 
+        val newMessage = MessageType(message,userId,timeOfMessage)
+        //Create hashmap of messageType
+        val hm = hashMapOf(
+            "messageContent" to message,
+            "user" to userId,
+            "time" to timeOfMessage
+        )
+        val viewer: RecyclerView = findViewById(R.id.chat_view)
+        listOfChat.add(newMessage)
+        viewer.scrollToPosition(listOfChat.size - 1)
+        messageAdapter.notifyDataSetChanged()
+        //add message along with the time and userID (hashmap) to the firestore db
+        fStore.collection("chat").document().set(hm).addOnSuccessListener {
+            System.out.println("Success write on firestore")
+
+        }
+    }
+
+    private fun listOfMessages() {
+        fStore.collection("chat").get().addOnSuccessListener { result ->
+            for (document in result) {
+                //get text, userID and time of each message within the db
+                //then add all messages to the listOfChat
+                val msg = MessageType(
+                    document.data.get("messageContent") as String,
+                    document.data.get("user") as String,
+                    document.data.get("time").toString()
+                )
+                listOfChat += msg
+            }
+            //sort the list according to time of messages
+            listOfChat.sortBy{it.time}
+            val viewer: RecyclerView = findViewById(R.id.chat_view)
+            viewer.adapter = messageAdapter
+            //allow the users to scroll through messages
+            viewer.layoutManager = LinearLayoutManager(this)
+            viewer.scrollToPosition(listOfChat.size - 1)
+            //optimize the viewer
+            viewer.setHasFixedSize(true)
+
+        }
+    }
+}

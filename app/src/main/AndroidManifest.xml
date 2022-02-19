@@ -37,6 +37,7 @@
             android:noHistory="true"/>
         <activity android:name=".CreateDonationActivity"/>
         <activity android:name=".ViewDonationsActivity"/>
+        <activity android:name=".ViewChatActivity"/>
     </application>
 
 </manifest>

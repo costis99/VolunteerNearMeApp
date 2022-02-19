@@ -54,6 +54,10 @@ class HomeOrganizersActivity : AppCompatActivity() {
         createDonation.setOnClickListener {
             startActivity(Intent(this, CreateDonationActivity::class.java))
         }
+        val chat: Button = findViewById(R.id.ChatButton)
+        chat.setOnClickListener {
+            startActivity(Intent(this, ViewChatActivity::class.java))
+        }
         // If the organizer clicks on the logout button log the organizer out of the system and return to the
         // login page
         val logout: Button = findViewById(R.id.LogOutButton)
@@ -90,6 +94,9 @@ class HomeOrganizersActivity : AppCompatActivity() {
             finish()
         } else if (id == R.id.create_donation) {
             startActivity(Intent(this, CreateDonationActivity::class.java))
+            finish()
+        }else if (id == R.id.Chat) {
+            startActivity(Intent(this, ViewChatActivity::class.java))
             finish()
         }
         else if(id == R.id.logout){

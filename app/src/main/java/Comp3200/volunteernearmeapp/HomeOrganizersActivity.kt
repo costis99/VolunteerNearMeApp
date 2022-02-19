@@ -85,8 +85,11 @@ class HomeOrganizersActivity : AppCompatActivity() {
         } else if (id == R.id.create_event){
             startActivity(Intent(this, CreateEventActivity::class.java))
             finish()
-        } else if (id == R.id.view_donations){
+        } else if (id == R.id.view_donations) {
             startActivity(Intent(this, ViewDonationsActivity::class.java))
+            finish()
+        } else if (id == R.id.create_donation) {
+            startActivity(Intent(this, CreateDonationActivity::class.java))
             finish()
         }
         else if(id == R.id.logout){

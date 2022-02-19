@@ -38,6 +38,10 @@ class HomeVolunteersActivity : AppCompatActivity() {
         viewEvents.setOnClickListener {
             startActivity(Intent(this, ViewEventsActivity::class.java))
         }
+        val viewDonation: Button = findViewById(R.id.ViewDonationsButton)
+        viewDonation.setOnClickListener {
+            startActivity(Intent(this, ViewDonationsActivity::class.java))
+        }
         // If the volunteer clicks on the logout button log the volunteer out of the system and return to the
         // login page
         val logout: Button = findViewById(R.id.LogOutButton)
@@ -64,6 +68,9 @@ class HomeVolunteersActivity : AppCompatActivity() {
             startActivity(intent)
         } else if (id == R.id.view_events) {
             startActivity(Intent(this, ViewEventsActivity::class.java))
+            finish()
+        }else if (id == R.id.view_donations) {
+            startActivity(Intent(this, ViewDonationsActivity::class.java))
             finish()
         } else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();

@@ -96,7 +96,13 @@ class EditProfileActivity: AppCompatActivity() {
                     } else if (id == R.id.create_event) {
                         startActivity(Intent(this, CreateEventActivity::class.java))
                         finish()
-                    } else if (id == R.id.logout) {
+                    } else if (id == R.id.view_donations) {
+                        startActivity(Intent(this, ViewDonationsActivity::class.java))
+                        finish()
+                    } else if (id == R.id.create_donation) {
+                        startActivity(Intent(this, CreateDonationActivity::class.java))
+                        finish()
+                    }else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -115,6 +121,9 @@ class EditProfileActivity: AppCompatActivity() {
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
                         startActivity(Intent(this, ViewEventsActivity::class.java))
+                        finish()
+                    } else if (id == R.id.view_donations) {
+                        startActivity(Intent(this, ViewDonationsActivity::class.java))
                         finish()
                     } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();

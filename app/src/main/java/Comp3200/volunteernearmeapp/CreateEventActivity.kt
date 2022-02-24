@@ -72,17 +72,18 @@ class CreateEventActivity : AppCompatActivity() {
             eventDesc.requestFocus()
             return
         }
+        val user = Firebase.auth.currentUser
+        val userId = user?.uid
         //Make a hashmap of the data that are going to be added to the database
         val ev = hashMapOf(
             "Name" to nameOfEvent.text.toString(),
             "Latitude" to la,
             "Longitude" to lo,
             "Vicinity" to addressOfEvent.text.toString(),
-            "Description" to eventDesc.text.toString()
+            "Description" to eventDesc.text.toString(),
+            "Creator" to userId
         )
         //Add the event creation hashmap to the database
-        val user = Firebase.auth.currentUser
-        val userId = user?.uid
         val rand = (100000000..10000000000000).random()
         if (userId != null) {
             mFirebaseDatabaseInstance?.collection("eventsPending")?.document(rand.toString())

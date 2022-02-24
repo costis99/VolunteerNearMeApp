@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_12_00"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/chat_message"
         app:layout_constraintStart_toEndOf="@+id/chat_message"

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class ProfileViewActivity: AppCompatActivity()  {
     private lateinit var auth: FirebaseAuth
@@ -28,6 +30,20 @@ class ProfileViewActivity: AppCompatActivity()  {
         val email : TextView = findViewById(R.id.tv_email)
         val nickname : TextView = findViewById(R.id.tv_nickname)
         val role : TextView = findViewById(R.id.tv_role)
+        val picture: ImageView = findViewById(R.id.memberPicture)
+        val userID = auth.currentUser?.uid
+        if (userID != null) {
+            fStore.collection("users").document(userID).get().addOnSuccessListener { result ->
+
+                if(result.get("profilePic") != null) {
+                    Picasso.get()
+                        .load(result.get("profilePic").toString())
+                        .fit()
+                        .into(picture)
+                }
+            }
+        }
+
         addToUserProfile(email, nickname, role)
 
         val editProfile: Button = findViewById(R.id.editProfileButton)

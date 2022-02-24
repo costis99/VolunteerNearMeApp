@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +14,16 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class HomeVolunteersActivity : AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_volunteers)
         fStore = Firebase.firestore
+        auth = Firebase.auth
         val tv: TextView = findViewById(R.id.hello_vol)
         val user = Firebase.auth.currentUser
         val userId = user?.uid
@@ -30,6 +34,19 @@ class HomeVolunteersActivity : AppCompatActivity() {
                 }
                 else{
                     tv.text = "Hello Volunteer!"
+                }
+            }
+        }
+        val picture: ImageView = findViewById(R.id.memberPicture)
+        val userID = auth.currentUser?.uid
+        if (userID != null) {
+            fStore.collection("users").document(userID).get().addOnSuccessListener { result ->
+
+                if(result.get("profilePic") != null) {
+                    Picasso.get()
+                        .load(result.get("profilePic").toString())
+                        .fit()
+                        .into(picture)
                 }
             }
         }

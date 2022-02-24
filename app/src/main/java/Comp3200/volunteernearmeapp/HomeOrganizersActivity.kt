@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +15,15 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class HomeOrganizersActivity : AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_organizers)
+        auth = Firebase.auth
         fStore = Firebase.firestore
         val tv: TextView = findViewById(R.id.hello_org)
         val user = Firebase.auth.currentUser
@@ -34,6 +38,20 @@ class HomeOrganizersActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener{
                 tv.text = "Hello Organizer!"
+            }
+        }
+
+        val picture: ImageView = findViewById(R.id.memberPicture)
+        val userID = auth.currentUser?.uid
+        if (userID != null) {
+            fStore.collection("users").document(userID).get().addOnSuccessListener { result ->
+
+                if(result.get("profilePic") != null) {
+                    Picasso.get()
+                        .load(result.get("profilePic").toString())
+                        .fit()
+                        .into(picture)
+                }
             }
         }
         //If the organizer clicks on the View Events Button go to the View Events Activity
@@ -57,6 +75,14 @@ class HomeOrganizersActivity : AppCompatActivity() {
         val chat: Button = findViewById(R.id.ChatButton)
         chat.setOnClickListener {
             startActivity(Intent(this, ViewChatActivity::class.java))
+        }
+        val deleteEv: Button = findViewById(R.id.DeleteEventButton)
+        deleteEv.setOnClickListener {
+            startActivity(Intent(this,DeleteEventsActivity::class.java))
+        }
+        val deleteDonation: Button = findViewById(R.id.DeleteDonationButton)
+        deleteDonation.setOnClickListener {
+            startActivity(Intent(this,DeleteDonationsActivity::class.java))
         }
         // If the organizer clicks on the logout button log the organizer out of the system and return to the
         // login page

@@ -55,14 +55,15 @@ class CreateDonationActivity: AppCompatActivity() {
         }
 
         //Make a hashmap of the data that are going to be added to the database
+        val user = Firebase.auth.currentUser
+        val userId = user?.uid
         val newDonation = hashMapOf(
             "Name" to nameOfDon.text.toString(),
             "Link" to linkOfDon.text.toString(),
-            "Description" to descOfDon.text.toString()
+            "Description" to descOfDon.text.toString(),
+            "Creator" to userId
         )
         //Add the event creation hashmap to the database
-        val user = Firebase.auth.currentUser
-        val userId = user?.uid
         val rand = (100000000..10000000000000).random()
         if (userId != null) {
             mFirebaseDatabaseInstance?.collection("donations")?.document(rand.toString())

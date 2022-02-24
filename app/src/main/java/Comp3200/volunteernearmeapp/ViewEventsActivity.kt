@@ -13,13 +13,20 @@
 // limitations under the License.
 package Comp3200.volunteernearmeapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -31,14 +38,27 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ViewEventsActivity : AppCompatActivity() {
+/*
+Adapted and modified from
+https://github.com/googlecodelabs/maps-platform-101-android/tree/main/solution/app/src/main/java/com/google/codelabs/buildyourfirstmap
+ */
+class ViewEventsActivity : AppCompatActivity(){
     //firestore instance
     var mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+    private lateinit var currentLocation: Location
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var fStore: FirebaseFirestore
+    var mLocation: Location? = null
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_events)
         fStore = Firebase.firestore
+        currentLocation = Location(LocationManager.GPS_PROVIDER)
+        fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
+
         //create map fragment
         val mapFragment = supportFragmentManager.findFragmentById(
             R.id.map_fragment
@@ -51,16 +71,52 @@ class ViewEventsActivity : AppCompatActivity() {
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            1000 -> {
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                } else {
+                    // permission denied
+                    Toast.makeText(this, "You need to grant permission to access location",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
     //Add event marker from drawable folder
     private val logoMark: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(this, R.color.design_default_color_primary)
         BitmapHelper.vectorToBitmap(this, R.drawable.ic_baseline_location_on_24, color)
     }
-
     /**
      * Adds marker representations of the places list on the provided GoogleMap object
      */
+    @SuppressLint("MissingPermission")
     private fun addMarkers(googleMap: GoogleMap) {
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                mLocation = location
+                if (location != null) {
+                    val latLng = LatLng(location.latitude,location.longitude)
+                    googleMap.addMarker(MarkerOptions().title("Your Location").position(latLng))
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
+                }
+                else{
+                    Toast.makeText(this, "Open google maps to access location",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Open google maps to access location",
+                    Toast.LENGTH_SHORT).show()
+            }
         //Loop through the database of events
         mFirebaseDatabaseInstance.collection("eventsPending")
             .get()
@@ -177,5 +233,5 @@ class ViewEventsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
+        }
 

@@ -2,9 +2,11 @@ package Comp3200.volunteernearmeapp
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +39,7 @@ class ViewDonationsActivity: AppCompatActivity() {
                         )
                     textView.gravity = Gravity.CENTER_VERTICAL //set the gravity too
                     textView.text = "Name: " +document.get("Name").toString() //adding text
+                    textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
                     linearLayout.addView(textView) //inflating :)
 
 
@@ -49,16 +52,17 @@ class ViewDonationsActivity: AppCompatActivity() {
                         )
                     textView2.gravity = Gravity.CENTER_VERTICAL //set the gravity too
                     textView2.text = "Description: " +document.get("Description").toString() //adding text
+                    textView2.setTypeface(textView.getTypeface(), Typeface.BOLD);
                     linearLayout.addView(textView2)
 
-                    val textView1 = TextView(this)
+                    val textView1 = Button(this)
 
                     textView1.layoutParams =
                         LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT, 100
                         )
                     textView1.gravity = Gravity.CENTER_VERTICAL //set the gravity too
-                    textView1.text = document.get("Link").toString() //adding text
+                    textView1.text = "Donate" //adding text
                     textView1.setTextColor(Color.BLUE)
                     linearLayout.addView(textView1)
 //                  MAKE LINK CLICKABLE

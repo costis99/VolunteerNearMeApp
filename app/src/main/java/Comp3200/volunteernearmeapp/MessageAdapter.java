@@ -1,8 +1,13 @@
 package Comp3200.volunteernearmeapp;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -82,11 +88,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
         TextView msg,
                 msgUserId,
                 msgTime;
-
+        ImageView imageView;
         MessageReceiver(View itemView) {
             super(itemView);
             msgUserId = (TextView) itemView.findViewById(R.id.message_of_user);
-
+            imageView = (ImageView) itemView.findViewById(R.id.profile_pic_user);
             msgTime = (TextView) itemView.findViewById(R.id.time_chat);
             msg = (TextView) itemView.findViewById(R.id.chat_of_user);
 
@@ -101,6 +107,17 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         msgUserId.setText(Objects.requireNonNull(document.get("Nickname")).toString());
+                        if(document.get("profilePic") != null){
+//                            Uri myUri = Uri.parse(Objects.requireNonNull(document.get("profilePic")).toString());
+//                            imageView.setImageURI(myUri);
+////                            Uri uri = data.Data;
+//                            Bitmap bmp= BitmapFactory.codeStream(ContentResolver.OpenInputStream(myUri));
+//                            imageView.setImageBitmap(bmp);
+                            Picasso.get()
+                                    .load(document.get("profilePic").toString())
+                                    .fit()
+                                    .into(imageView);
+                        }
                     }
                 } else {
                     System.out.println("Error!");

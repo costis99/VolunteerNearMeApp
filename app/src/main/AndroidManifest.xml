@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="Comp3200.volunteernearmeapp">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -23,14 +27,11 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ForgotPassActivity"/>
-        <activity android:name=".HomeOrganizersActivity"
-            android:noHistory="true" />
-        <activity android:name=".HomeVolunteersActivity"
-            android:noHistory="true"/>
+        <activity android:name=".HomeOrganizersActivity"/>
+        <activity android:name=".HomeVolunteersActivity"/>
         <activity android:name=".ViewEventsActivity"/>
         <activity android:name=".CreateEventActivity"/>
-        <activity android:name=".EditProfileActivity"
-            android:noHistory="true"/>
+        <activity android:name=".EditProfileActivity"/>
         <activity android:name=".ProfileViewActivity"
             android:noHistory="true"/>
         <activity android:name=".ChangeEmailActivity"
@@ -38,6 +39,8 @@
         <activity android:name=".CreateDonationActivity"/>
         <activity android:name=".ViewDonationsActivity"/>
         <activity android:name=".ViewChatActivity"/>
+        <activity android:name=".DeleteEventsActivity"/>
+        <activity android:name=".DeleteDonationsActivity"/>
     </application>
 
 </manifest>

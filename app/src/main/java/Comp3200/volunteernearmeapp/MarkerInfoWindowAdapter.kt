@@ -19,7 +19,10 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
-
+/*
+Adapted and modified from
+https://github.com/googlecodelabs/maps-platform-101-android/tree/main/solution/app/src/main/java/com/google/codelabs/buildyourfirstmap
+ */
 class MarkerInfoWindowAdapter(
     private val context: Context
 ) : GoogleMap.InfoWindowAdapter {

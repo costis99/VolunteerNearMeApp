@@ -59,6 +59,10 @@ class HomeVolunteersActivity : AppCompatActivity() {
         viewDonation.setOnClickListener {
             startActivity(Intent(this, ViewDonationsActivity::class.java))
         }
+        val interest: Button = findViewById(R.id.InterestButton)
+        interest.setOnClickListener {
+            startActivity(Intent(this, InterestsActivity::class.java))
+        }
         val chat: Button = findViewById(R.id.ChatButton)
         chat.setOnClickListener {
             startActivity(Intent(this, ViewChatActivity::class.java))

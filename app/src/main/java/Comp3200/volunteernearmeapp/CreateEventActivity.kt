@@ -4,14 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
@@ -27,6 +24,11 @@ class CreateEventActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_event)
         auth = Firebase.auth
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+        val spinner = findViewById<Spinner>(R.id.interestsSpinner)
+        val items = arrayOf("No Type", "Climate change", "Children and Youth",
+            "Community Development", "Education", "Environment", "Health","Wildlife Protection")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
+        spinner.adapter = adapter
         val createEv: Button = findViewById(R.id.CreateButton)
         createEv.setOnClickListener {
             creatorOfEvents()
@@ -39,7 +41,7 @@ class CreateEventActivity : AppCompatActivity() {
         val longit: TextView = findViewById(R.id.et_log)
         val lo: Double = longit.getText().toString().toDouble()
         val latit: TextView = findViewById(R.id.et_lan)
-
+        val spinner = findViewById<Spinner>(R.id.interestsSpinner)
         val la: Double = latit.getText().toString().toDouble()
         val eventDesc: TextView = findViewById(R.id.et_eventDesc)
         //Check if name of event is empty and show appropriate message to the user
@@ -81,7 +83,8 @@ class CreateEventActivity : AppCompatActivity() {
             "Longitude" to lo,
             "Vicinity" to addressOfEvent.text.toString(),
             "Description" to eventDesc.text.toString(),
-            "Creator" to userId
+            "Creator" to userId,
+            "Type" to spinner.selectedItem.toString()
         )
         //Add the event creation hashmap to the database
         val rand = (100000000..10000000000000).random()

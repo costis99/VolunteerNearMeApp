@@ -110,43 +110,112 @@ class ViewEventsActivity : AppCompatActivity(){
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
                 }
                 else{
-                    Toast.makeText(this, "Open google maps to access location",
+                    Toast.makeText(this, "You need to grant permission to access location",
                         Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener {
-                Toast.makeText(this, "Open google maps to access location",
+                Toast.makeText(this, "You need to grant permission to access location",
                     Toast.LENGTH_SHORT).show()
             }
         //Loop through the database of events
         mFirebaseDatabaseInstance.collection("eventsPending")
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    //get longitude and latitude of each event and create a LatLng object
-                    val landl = LatLng(
-                        document.data.getValue("Latitude") as Double,
-                        document.data.getValue("Longitude") as Double
-                    )
-                    val place = Place(
-                        document.data.getValue("Name") as String,
-                        landl,
-                        document.data.getValue("Vicinity").toString(),
-                        document.data.getValue("Description").toString()
-                    )
-                    //Add marker in the map
-                    val marker =
-                        googleMap.addMarker(
-                            MarkerOptions()
-                                .title("Place name")
-                                .position(landl)
-                                .icon(logoMark)
-                        )
+                val user = Firebase.auth.currentUser
+                val userId = user?.uid
+                if (userId != null) {
+                    mFirebaseDatabaseInstance.collection("users").document(userId).get().addOnSuccessListener { output ->
+                        if (output.get("Role").toString().equals("Organizer")) {
+                            for (document in result) {
+                                //get longitude and latitude of each event and create a LatLng object
+                                val landl = LatLng(
+                                    document.data.getValue("Latitude") as Double,
+                                    document.data.getValue("Longitude") as Double
+                                )
+                                val place = Place(
+                                    document.data.getValue("Name") as String,
+                                    landl,
+                                    document.data.getValue("Vicinity").toString(),
+                                    document.data.getValue("Description").toString()
+                                )
+                                //Add marker in the map
+                                val marker =
+                                    googleMap.addMarker(
+                                        MarkerOptions()
+                                            .title("Place name")
+                                            .position(landl)
+                                            .icon(logoMark)
+                                    )
 
-                    // Set place as the tag on the marker object so it can be referenced within
-                    // MarkerInfoWindowAdapter
-                    marker.tag = place
+                                // Set place as the tag on the marker object so it can be referenced within
+                                // MarkerInfoWindowAdapter
+                                marker.tag = place
+                            }
+                        } else {
+                            for (document in result) {
+                                mFirebaseDatabaseInstance.collection("interests").document(userId)
+                                    .get().addOnSuccessListener { interest ->
+                                    if (!document.get("Type").toString().equals("No Type") &&
+                                        interest.get(document.get("Type").toString()).toString().equals("Interested")){
+                                        //get longitude and latitude of each event and create a LatLng object
+                                        val landl = LatLng(
+                                            document.data.getValue("Latitude") as Double,
+                                            document.data.getValue("Longitude") as Double
+                                        )
+                                        val place = Place(
+                                            document.data.getValue("Name") as String,
+                                            landl,
+                                            document.data.getValue("Vicinity").toString(),
+                                            document.data.getValue("Description").toString()
+                                        )
+                                        //Add marker in the map
+                                        val marker =
+                                            googleMap.addMarker(
+                                                MarkerOptions()
+                                                    .title("Place name")
+                                                    .position(landl)
+                                                    .icon(interestLogoMark)
+                                            )
+
+                                        // Set place as the tag on the marker object so it can be referenced within
+                                        // MarkerInfoWindowAdapter
+                                        marker.tag = place
+                                    } else {
+                                        //get longitude and latitude of each event and create a LatLng object
+                                        val landl = LatLng(
+                                            document.data.getValue("Latitude") as Double,
+                                            document.data.getValue("Longitude") as Double
+                                        )
+                                        val place = Place(
+                                            document.data.getValue("Name") as String,
+                                            landl,
+                                            document.data.getValue("Vicinity").toString(),
+                                            document.data.getValue("Description").toString()
+                                        )
+                                        //Add marker in the map
+                                        val marker =
+                                            googleMap.addMarker(
+                                                MarkerOptions()
+                                                    .title("Place name")
+                                                    .position(landl)
+                                                    .icon(logoMark)
+                                            )
+
+                                        // Set place as the tag on the marker object so it can be referenced within
+                                        // MarkerInfoWindowAdapter
+                                        marker.tag = place
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
+    }
+    //Add event marker from drawable folder
+    private val interestLogoMark: BitmapDescriptor by lazy {
+//        val color = ContextCompat.getColor(this,)
+        BitmapHelper.vectorToBitmap(this, R.drawable.ic_baseline_location_on_24, -65281)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val user = Firebase.auth.currentUser

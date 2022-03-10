@@ -54,10 +54,10 @@
         app:layout_constraintVertical_bias="0.454" />
 
     <Button
-        android:id="@+id/ViewStatsButton"
+        android:id="@+id/InterestButton"
         android:layout_width="129dp"
         android:layout_height="67dp"
-        android:text="View Stats"
+        android:text="Interests"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,5 +84,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813" />
+        app:layout_constraintVertical_bias="0.81" />
 </androidx.constraintlayout.widget.ConstraintLayout>

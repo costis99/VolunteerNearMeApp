@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ADD8E6">
+
+    <TextView
+        android:id="@+id/interester"
+        android:layout_width="365dp"
+        android:layout_height="57dp"
+        android:text="Choose your interests!"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062" />
+
+
+    <Switch
+        android:id="@+id/ClimateSwitch"
+        android:layout_width="365dp"
+        android:layout_height="53dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Climate Change"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.219" />
+
+    <Switch
+        android:id="@+id/ChildrenSwitch"
+        android:layout_width="367dp"
+        android:layout_height="49dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Children and Youth"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312" />
+
+    <Switch
+        android:id="@+id/CommunitySwitch"
+        android:layout_width="369dp"
+        android:layout_height="53dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Community Development"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.402"
+        tools:ignore="MissingConstraints" />
+
+    <Switch
+        android:id="@+id/EducationSwitch"
+        android:layout_width="367dp"
+        android:layout_height="52dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Education"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.313"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <Switch
+        android:id="@+id/EnvironmentSwitch"
+        android:layout_width="368dp"
+        android:layout_height="52dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Environment"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.313"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.597" />
+
+    <Switch
+        android:id="@+id/HealthSwitch"
+        android:layout_width="370dp"
+        android:layout_height="51dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Health"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.686" />
+
+    <Switch
+        android:id="@+id/WildlifeSwitch"
+        android:layout_width="368dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Wildlife Protection"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.788" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="178dp"
+        android:layout_height="51dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
+</androidx.constraintlayout.widget.ConstraintLayout>

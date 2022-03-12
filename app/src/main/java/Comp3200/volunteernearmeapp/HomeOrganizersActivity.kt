@@ -135,4 +135,8 @@ class HomeOrganizersActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 }

@@ -132,5 +132,9 @@ class InterestsActivity: AppCompatActivity() {
                 }
             }
         }
+    override fun onBackPressed() {
+        startActivity(Intent(this, HomeVolunteersActivity::class.java))
+        finish()
+    }
 
     }

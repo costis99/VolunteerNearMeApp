@@ -302,5 +302,21 @@ class ViewEventsActivity : AppCompatActivity(){
         }
         return super.onOptionsItemSelected(item)
     }
+    override fun onBackPressed() {
+        val user = Firebase.auth.currentUser
+        val userId = user?.uid
+        if (userId != null) {
+            fStore.collection("users").document(userId).get().addOnSuccessListener { result ->
+                if (result.get("Role").toString().equals("Organizer")) {
+                    startActivity(Intent(this, HomeOrganizersActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this, HomeVolunteersActivity::class.java))
+                    finish()
+
+                }
+            }
         }
+    }
+}
 

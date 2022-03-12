@@ -114,11 +114,10 @@ class ChangeEmailActivity : AppCompatActivity() {
                     var id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeOrganizersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view_org) {
+                    } else if (id == R.id.profile_view_org) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -133,10 +132,10 @@ class ChangeEmailActivity : AppCompatActivity() {
                     } else if (id == R.id.create_donation) {
                         startActivity(Intent(this, CreateDonationActivity::class.java))
                         finish()
-                    }else if (id == R.id.Chat) {
+                    } else if (id == R.id.Chat) {
                         startActivity(Intent(this, ViewChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.logout) {
+                    } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -146,11 +145,10 @@ class ChangeEmailActivity : AppCompatActivity() {
                     var id = item.itemId
 
                     if (id == R.id.logo) {
-                    }else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeVolunteersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view) {
+                    } else if (id == R.id.profile_view) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -162,7 +160,7 @@ class ChangeEmailActivity : AppCompatActivity() {
                     } else if (id == R.id.Chat) {
                         startActivity(Intent(this, ViewChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.logout) {
+                    } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -174,5 +172,22 @@ class ChangeEmailActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val user = Firebase.auth.currentUser
+        val userId = user?.uid
+        if (userId != null) {
+            fStore.collection("users").document(userId).get().addOnSuccessListener { result ->
+                if (result.get("Role").toString().equals("Organizer")) {
+                    startActivity(Intent(this, HomeOrganizersActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this, HomeVolunteersActivity::class.java))
+                    finish()
+
+                }
+            }
+        }
     }
 }

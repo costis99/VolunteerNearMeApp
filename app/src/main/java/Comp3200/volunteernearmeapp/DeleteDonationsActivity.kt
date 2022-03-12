@@ -172,4 +172,8 @@ class DeleteDonationsActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+    override fun onBackPressed() {
+        startActivity(Intent(this, HomeOrganizersActivity::class.java))
+        finish()
+    }
 }

@@ -39,10 +39,8 @@ class CreateEventActivity : AppCompatActivity() {
         val nameOfEvent: TextView = findViewById(R.id.et_eventName);
         val addressOfEvent: TextView = findViewById(R.id.et_address)
         val longit: TextView = findViewById(R.id.et_log)
-        val lo: Double = longit.getText().toString().toDouble()
         val latit: TextView = findViewById(R.id.et_lan)
         val spinner = findViewById<Spinner>(R.id.interestsSpinner)
-        val la: Double = latit.getText().toString().toDouble()
         val eventDesc: TextView = findViewById(R.id.et_eventDesc)
         //Check if name of event is empty and show appropriate message to the user
         if (nameOfEvent.text.toString().isEmpty()) {
@@ -74,6 +72,11 @@ class CreateEventActivity : AppCompatActivity() {
             eventDesc.requestFocus()
             return
         }
+
+        val lo: Double = longit.getText().toString().toDouble()
+
+        val la: Double = latit.getText().toString().toDouble()
+
         val user = Firebase.auth.currentUser
         val userId = user?.uid
         //Make a hashmap of the data that are going to be added to the database

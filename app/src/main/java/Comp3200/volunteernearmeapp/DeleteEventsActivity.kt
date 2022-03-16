@@ -63,7 +63,7 @@ class DeleteEventsActivity: AppCompatActivity() {
                                 ViewGroup.LayoutParams.WRAP_CONTENT, 100
                             )
                         textView1.gravity = Gravity.CENTER_VERTICAL //set the gravity too
-                        textView1.text = "Delete" //adding text
+                        textView1.text = "Close" //adding text
                         textView1.setTextColor(Color.BLUE)
                         linearLayout.addView(textView1)
 //                  MAKE Button CLICKABLE

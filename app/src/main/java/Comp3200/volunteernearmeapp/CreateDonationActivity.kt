@@ -102,7 +102,7 @@ class CreateDonationActivity: AppCompatActivity() {
             startActivity(Intent(this, CreateDonationActivity::class.java))
             finish()
         }else if (id == R.id.Chat) {
-            startActivity(Intent(this, ViewChatActivity::class.java))
+            startActivity(Intent(this, MainChatActivity::class.java))
             finish()
         }else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();

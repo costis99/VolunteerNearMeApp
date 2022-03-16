@@ -2,7 +2,6 @@ package Comp3200.volunteernearmeapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -26,6 +25,7 @@ class ViewChatActivity: AppCompatActivity() {
 
     private val listOfChat = ArrayList<MessageType>()
     private val messageAdapter = MessageAdapter(listOfChat)
+    var chatView = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         fStore = Firebase.firestore
@@ -33,6 +33,8 @@ class ViewChatActivity: AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        val b = intent.extras
+        chatView = b!!.getString("id").toString()
         //create a list of all the messages
         listOfMessages()
         val sender: ImageView = findViewById(R.id.send_chat_button)
@@ -153,14 +155,14 @@ class ViewChatActivity: AppCompatActivity() {
         viewer.scrollToPosition(listOfChat.size - 1)
         messageAdapter.notifyDataSetChanged()
         //add message along with the time and userID (hashmap) to the firestore db
-        fStore.collection("chat").document().set(hm).addOnSuccessListener {
+        fStore.collection(chatView).document().set(hm).addOnSuccessListener {
             System.out.println("Success write on firestore")
 
         }
     }
 
     private fun listOfMessages() {
-        fStore.collection("chat").get().addOnSuccessListener { result ->
+        fStore.collection(chatView).get().addOnSuccessListener { result ->
             for (document in result) {
                 //get text, userID and time of each message within the db
                 //then add all messages to the listOfChat

@@ -42,6 +42,7 @@
         <activity android:name=".DeleteEventsActivity"/>
         <activity android:name=".DeleteDonationsActivity"/>
         <activity android:name=".InterestsActivity"/>
+        <activity android:name=".MainChatActivity"/>
     </application>
 
 </manifest>

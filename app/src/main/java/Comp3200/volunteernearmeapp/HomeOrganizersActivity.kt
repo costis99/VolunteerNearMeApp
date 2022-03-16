@@ -74,7 +74,7 @@ class HomeOrganizersActivity : AppCompatActivity() {
         }
         val chat: Button = findViewById(R.id.ChatButton)
         chat.setOnClickListener {
-            startActivity(Intent(this, ViewChatActivity::class.java))
+            startActivity(Intent(this, MainChatActivity::class.java))
         }
         val deleteEv: Button = findViewById(R.id.DeleteEventButton)
         deleteEv.setOnClickListener {
@@ -122,7 +122,7 @@ class HomeOrganizersActivity : AppCompatActivity() {
             startActivity(Intent(this, CreateDonationActivity::class.java))
             finish()
         }else if (id == R.id.Chat) {
-            startActivity(Intent(this, ViewChatActivity::class.java))
+            startActivity(Intent(this, MainChatActivity::class.java))
             finish()
         }
         else if(id == R.id.logout){

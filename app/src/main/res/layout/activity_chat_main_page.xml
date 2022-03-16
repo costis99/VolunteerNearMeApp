@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ADD8E6">
+
+    <Button
+        android:id="@+id/generalChatButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@android:drawable/ic_dialog_email"
+        android:paddingTop="20dp"
+        android:text="General Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ClimateChangeButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_wb_sunny_24"
+        android:paddingTop="20dp"
+        android:text="Climate Change Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ChildrenAndYouthButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="184dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_child_care_24"
+        android:paddingTop="20dp"
+        android:text="Youth Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/CommunityDevelopmentButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="184dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_people_24"
+        android:paddingTop="20dp"
+        android:text="Community Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/EdButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_emoji_people_24"
+        android:paddingTop="20dp"
+        android:text="Education Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/EnvironmentButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_grass_24"
+        android:paddingTop="20dp"
+        android:text="Environment Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/HealthButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="496dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_favorite_24"
+        android:paddingTop="20dp"
+        android:text="Health Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/WildlifeProtectionButton"
+        android:layout_width="146dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="496dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@drawable/ic_baseline_pets_24"
+        android:paddingTop="20dp"
+        android:text="Wildlife Chat"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 package Comp3200.volunteernearmeapp
 
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -12,13 +13,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
-
 class CreateEventActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-
     //Create Firebase Firestore instance
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
-
+    var latit : Double = 0.0
+    var longitu : Double = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
@@ -34,36 +34,38 @@ class CreateEventActivity : AppCompatActivity() {
             creatorOfEvents()
         }
     }
+    fun convertAddress(address : String) {
+        val geoCoder = Geocoder(this)
+        if (!address.isEmpty()) {
+            try {
+                val addressList: List<Address> = geoCoder.getFromLocationName(address, 1)
+                if (addressList.size > 0) {
+                    latit = addressList[0].getLatitude()
+                    longitu = addressList[0].getLongitude()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     private fun creatorOfEvents() {
         val nameOfEvent: TextView = findViewById(R.id.et_eventName);
         val addressOfEvent: TextView = findViewById(R.id.et_address)
-        val longit: TextView = findViewById(R.id.et_log)
-        val latit: TextView = findViewById(R.id.et_lan)
         val spinner = findViewById<Spinner>(R.id.interestsSpinner)
         val eventDesc: TextView = findViewById(R.id.et_eventDesc)
+
         //Check if name of event is empty and show appropriate message to the user
         if (nameOfEvent.text.toString().isEmpty()) {
             nameOfEvent.error = "Please enter a non empty name of event"
             nameOfEvent.requestFocus()
             return
         }
+        convertAddress(addressOfEvent.text.toString())
         //Check if address of event is empty and show appropriate message to the user
         if (addressOfEvent.text.toString().isEmpty()) {
             addressOfEvent.error = "Please enter a non empty address"
             addressOfEvent.requestFocus()
-            return
-        }
-        //Check if longitude is empty and show appropriate message to the user
-        if (longit.text.toString().isEmpty()) {
-            longit.error = "Please enter a non empty longitude"
-            longit.requestFocus()
-            return
-        }
-        //Check if latitude is empty and show appropriate message to the user
-        if (latit.text.toString().isEmpty()) {
-            latit.error = "Please enter a non empty latitude"
-            latit.requestFocus()
             return
         }
         //Check if event description is empty and show appropriate message to the user
@@ -72,10 +74,15 @@ class CreateEventActivity : AppCompatActivity() {
             eventDesc.requestFocus()
             return
         }
+        if (longitu.equals(0.0) || latit.equals(0.0)){
+            addressOfEvent.error = "Please check the address you entered"
+            addressOfEvent.requestFocus()
+            return
+        }
 
-        val lo: Double = longit.getText().toString().toDouble()
+        val lo: Double = longitu
 
-        val la: Double = latit.getText().toString().toDouble()
+        val la: Double = latit
 
         val user = Firebase.auth.currentUser
         val userId = user?.uid

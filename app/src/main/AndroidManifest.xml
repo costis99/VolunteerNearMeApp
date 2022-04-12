@@ -27,8 +27,10 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ForgotPassActivity"/>
-        <activity android:name=".HomeOrganizersActivity"/>
-        <activity android:name=".HomeVolunteersActivity"/>
+        <activity android:name=".HomeOrganizersActivity"
+            android:noHistory="true"/>
+        <activity android:name=".HomeVolunteersActivity"
+            android:noHistory="true"/>
         <activity android:name=".ViewEventsActivity"/>
         <activity android:name=".CreateEventActivity"/>
         <activity android:name=".EditProfileActivity"/>

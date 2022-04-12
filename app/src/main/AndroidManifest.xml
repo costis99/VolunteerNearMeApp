@@ -43,6 +43,8 @@
         <activity android:name=".DeleteDonationsActivity"/>
         <activity android:name=".InterestsActivity"/>
         <activity android:name=".MainChatActivity"/>
+        <activity android:name=".InstructionsVolunteerActivity"/>
+        <activity android:name=".InstructionsOrganizerActivity"/>
     </application>
 
 </manifest>

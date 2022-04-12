@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ADD8E6">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-155dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/howToUse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to use the app!"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+
+            <TextView
+                android:id="@+id/ev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Events:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+
+            <TextView
+                android:id="@+id/tv_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can view the events near you by clicking on the View Events option. Your location is shown by the red marker. Events are shown by the purple marker."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <ImageView
+                android:id="@+id/events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/events_organizer"
+                tools:layout_editor_absoluteX="109dp"
+                tools:layout_editor_absoluteY="-47dp" />
+
+            <TextView
+                android:id="@+id/cr_ev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Events:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+
+            <TextView
+                android:id="@+id/tv_cr_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can create events by clicking on the Create Event option. You must then enter the type name, address and description of your event and click on the create button."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <TextView
+                android:id="@+id/delte_evs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close Events:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+            <TextView
+                android:id="@+id/tv_close_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can close the events you have created by clicking on the Close Events option. Choose which event option you would like to close by clicking on the 'CLOSE' button as shown in the image below."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <ImageView
+                android:id="@+id/close_evs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/delete_events"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="84dp" />
+
+            <TextView
+                android:id="@+id/don"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Donations:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+            <TextView
+                android:id="@+id/tv_donations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can view the donations of the application by clicking on the View Donations option. You can choose which donation option you would like to donate to by clicking on the 'Donate button' as shown in the image below. This will redirect you to the paypal website of the donation creator. "
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <ImageView
+                android:id="@+id/donation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/donations_volunteer"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="84dp" />
+
+            <TextView
+                android:id="@+id/cr_don"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Donation:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+
+            <TextView
+                android:id="@+id/tv_cr_donations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can create donations by clicking on the Create Donation option. You must then enter the name, link and description of your donation and click on the create button."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <TextView
+                android:id="@+id/delte_dons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close Donations:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+            <TextView
+                android:id="@+id/tv_close_donations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can close the donations you have created by clicking on the Close Donation option. Choose which donation you would like to close by clicking on the 'CLOSE' button as shown in the image below."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <ImageView
+                android:id="@+id/close_dons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/delete_donations"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="84dp" />
+
+            <TextView
+                android:id="@+id/ch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chat:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+            <TextView
+                android:id="@+id/tv_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can view the different chats by clicking on the Chat option. Choose the chat you want to read/ write by clicking on the appropriate button."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <TextView
+                android:id="@+id/ed_prof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Profile:"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="20dp" />
+            <TextView
+                android:id="@+id/tv_edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can view your profile information by clicking on the person icon in the menu at the top of each page. If you wish to change your profile info click on the edit profile button at the bottom of the page. If you wish to change email or password click on the appropriate buttons at the bottom."
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="81dp" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

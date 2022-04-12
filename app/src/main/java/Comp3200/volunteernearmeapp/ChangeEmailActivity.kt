@@ -160,6 +160,9 @@ class ChangeEmailActivity : AppCompatActivity() {
                     } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
+                    }else if (id == R.id.instructions) {
+                        startActivity(Intent(this, InstructionsVolunteerActivity::class.java))
+                        finish()
                     } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()

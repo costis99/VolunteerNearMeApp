@@ -5,14 +5,10 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Switch
-import android.widget.TextView
+import android.view.*
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -132,6 +128,41 @@ class InterestsActivity: AppCompatActivity() {
                 }
             }
         }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main_volunteers, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id = item.itemId
+
+        if (id == R.id.logo) {
+        } else if (id == R.id.home_page){
+            startActivity(Intent(this, HomeVolunteersActivity::class.java))
+            finish()
+        } else if (id == R.id.profile_view){
+            val intent = Intent(this, ProfileViewActivity::class.java)
+            startActivity(intent)
+        } else if (id == R.id.view_events) {
+            startActivity(Intent(this, ViewEventsActivity::class.java))
+            finish()
+        }else if (id == R.id.view_donations) {
+            startActivity(Intent(this, ViewDonationsActivity::class.java))
+            finish()
+        }else if (id == R.id.Chat) {
+            startActivity(Intent(this, MainChatActivity::class.java))
+            finish()
+        }else if (id == R.id.instructions) {
+            startActivity(Intent(this, InstructionsVolunteerActivity::class.java))
+            finish()
+        }else if(id == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onBackPressed() {
         startActivity(Intent(this, HomeVolunteersActivity::class.java))
         finish()

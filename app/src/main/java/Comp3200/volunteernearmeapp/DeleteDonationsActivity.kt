@@ -128,6 +128,9 @@ class DeleteDonationsActivity: AppCompatActivity() {
                     } else if (id == R.id.create_donation) {
                         startActivity(Intent(this, CreateDonationActivity::class.java))
                         finish()
+                    }else if (id == R.id.instructions) {
+                        startActivity(Intent(this, InstructionsOrganizerActivity::class.java))
+                        finish()
                     }else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()

@@ -15,7 +15,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
-class CreateDonationActivity: AppCompatActivity() {
+/**
+ * Activity that allows only Organizers to create Donations (add all Donations
+ *  created successfully into Firestore)
+ */
+class CreateDonationActivity : AppCompatActivity() {
     //Create Firebase Firestore instance
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +45,10 @@ class CreateDonationActivity: AppCompatActivity() {
         }
         //Check if link of donation is valid
         if (linkOfDon.text.toString().isEmpty() || !URLUtil.isValidUrl(linkOfDon.text.toString())
-            || !Patterns.WEB_URL.matcher(linkOfDon.text.toString()).matches() || !linkOfDon.text.toString().contains("https://")
-            || !linkOfDon.text.toString().contains("paypal")) {
+            || !Patterns.WEB_URL.matcher(linkOfDon.text.toString())
+                .matches() || !linkOfDon.text.toString().contains("https://")
+            || !linkOfDon.text.toString().contains("paypal")
+        ) {
             linkOfDon.error = "Please enter a valid paypal link"
             linkOfDon.requestFocus()
             return
@@ -74,25 +80,26 @@ class CreateDonationActivity: AppCompatActivity() {
         startActivity(Intent(this, HomeOrganizersActivity::class.java))
         finish()
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main_organizers, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var id = item.itemId
 
         if (id == R.id.logo) {
-        } else if (id == R.id.home_page){
+        } else if (id == R.id.home_page) {
             startActivity(Intent(this, HomeOrganizersActivity::class.java))
             finish()
-        }
-        else if (id == R.id.profile_view_org){
+        } else if (id == R.id.profile_view_org) {
             val intent = Intent(this, ProfileViewActivity::class.java)
             startActivity(intent)
         } else if (id == R.id.view_events) {
             startActivity(Intent(this, ViewEventsActivity::class.java))
             finish()
-        } else if (id == R.id.create_event){
+        } else if (id == R.id.create_event) {
             startActivity(Intent(this, CreateEventActivity::class.java))
             finish()
         } else if (id == R.id.view_donations) {
@@ -101,13 +108,13 @@ class CreateDonationActivity: AppCompatActivity() {
         } else if (id == R.id.create_donation) {
             startActivity(Intent(this, CreateDonationActivity::class.java))
             finish()
-        }else if (id == R.id.Chat) {
+        } else if (id == R.id.Chat) {
             startActivity(Intent(this, MainChatActivity::class.java))
             finish()
-        }else if (id == R.id.instructions) {
+        } else if (id == R.id.instructions) {
             startActivity(Intent(this, InstructionsOrganizerActivity::class.java))
             finish()
-        }else if(id == R.id.logout){
+        } else if (id == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
@@ -116,6 +123,7 @@ class CreateDonationActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     override fun onBackPressed() {
         startActivity(Intent(this, HomeOrganizersActivity::class.java))
         finish()

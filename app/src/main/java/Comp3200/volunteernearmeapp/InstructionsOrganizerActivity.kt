@@ -8,6 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * Activity Demonstrating the Instructions of the Organizers. Only display
+ * the activity_instructions_organizer.xml
+ */
 class InstructionsOrganizerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +61,7 @@ class InstructionsOrganizerActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
     override fun onBackPressed() {
-        startActivity(Intent(this, HomeVolunteersActivity::class.java))
+        startActivity(Intent(this, HomeOrganizersActivity::class.java))
         finish()
     }
 }

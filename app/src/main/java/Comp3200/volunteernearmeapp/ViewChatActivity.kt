@@ -19,7 +19,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ViewChatActivity: AppCompatActivity() {
+class ViewChatActivity : AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
@@ -38,7 +38,7 @@ class ViewChatActivity: AppCompatActivity() {
         //create a list of all the messages
         listOfMessages()
         val sender: ImageView = findViewById(R.id.send_chat_button)
-        val msg: EditText=findViewById(R.id.typer)
+        val msg: EditText = findViewById(R.id.typer)
         //When the user tries to send a new message in the chat
         //check if message is empty
         //else send it
@@ -52,6 +52,7 @@ class ViewChatActivity: AppCompatActivity() {
             }
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val user = Firebase.auth.currentUser
         val userId = user?.uid
@@ -76,11 +77,10 @@ class ViewChatActivity: AppCompatActivity() {
                     val id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeOrganizersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view_org) {
+                    } else if (id == R.id.profile_view_org) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -89,16 +89,16 @@ class ViewChatActivity: AppCompatActivity() {
                     } else if (id == R.id.create_event) {
                         startActivity(Intent(this, CreateEventActivity::class.java))
                         finish()
-                    }else if (id == R.id.view_donations) {
+                    } else if (id == R.id.view_donations) {
                         startActivity(Intent(this, ViewDonationsActivity::class.java))
                         finish()
                     } else if (id == R.id.create_donation) {
                         startActivity(Intent(this, CreateDonationActivity::class.java))
                         finish()
-                    }else if (id == R.id.Chat) {
+                    } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsOrganizerActivity::class.java))
                         finish()
                     } else if (id == R.id.logout) {
@@ -111,11 +111,10 @@ class ViewChatActivity: AppCompatActivity() {
                     val id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeVolunteersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view) {
+                    } else if (id == R.id.profile_view) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -127,10 +126,10 @@ class ViewChatActivity: AppCompatActivity() {
                     } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsVolunteerActivity::class.java))
                         finish()
-                    }else if (id == R.id.logout) {
+                    } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -143,13 +142,14 @@ class ViewChatActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun msgSender(message: String) {
         //find time of current message
-        val timeOfMessage = Date(Timestamp.now().seconds*1000).toLocaleString()
+        val timeOfMessage = Date(Timestamp.now().seconds * 1000).toLocaleString()
         //associate message with current userID
         val userId = auth.currentUser!!.uid
 
-        val newMessage = MessageType(message,userId,timeOfMessage)
+        val newMessage = MessageType(message, userId, timeOfMessage)
         //Create hashmap of messageType
         val hm = hashMapOf(
             "messageContent" to message,
@@ -180,7 +180,7 @@ class ViewChatActivity: AppCompatActivity() {
                 listOfChat += msg
             }
             //sort the list according to time of messages
-            listOfChat.sortBy{it.time}
+            listOfChat.sortBy { it.time }
             val viewer: RecyclerView = findViewById(R.id.chat_view)
             viewer.adapter = messageAdapter
             //allow the users to scroll through messages
@@ -191,6 +191,7 @@ class ViewChatActivity: AppCompatActivity() {
 
         }
     }
+
     override fun onBackPressed() {
         val user = Firebase.auth.currentUser
         val userId = user?.uid

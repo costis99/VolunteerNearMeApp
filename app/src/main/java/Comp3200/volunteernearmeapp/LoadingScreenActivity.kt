@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Activity demonstrating the Loading Screen Animations once the Application is started
+ */
 class LoadingScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

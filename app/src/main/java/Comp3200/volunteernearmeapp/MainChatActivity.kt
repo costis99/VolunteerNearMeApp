@@ -13,7 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
+/**
+ * Activity displaying all the chat options that the users can choose.
+ */
 class MainChatActivity : AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +77,7 @@ class MainChatActivity : AppCompatActivity() {
             startActivity(i)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val user = Firebase.auth.currentUser
         val userId = user?.uid
@@ -99,11 +102,10 @@ class MainChatActivity : AppCompatActivity() {
                     val id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeOrganizersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view_org) {
+                    } else if (id == R.id.profile_view_org) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -112,16 +114,16 @@ class MainChatActivity : AppCompatActivity() {
                     } else if (id == R.id.create_event) {
                         startActivity(Intent(this, CreateEventActivity::class.java))
                         finish()
-                    }else if (id == R.id.view_donations) {
+                    } else if (id == R.id.view_donations) {
                         startActivity(Intent(this, ViewDonationsActivity::class.java))
                         finish()
                     } else if (id == R.id.create_donation) {
                         startActivity(Intent(this, CreateDonationActivity::class.java))
                         finish()
-                    }else if (id == R.id.Chat) {
+                    } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsOrganizerActivity::class.java))
                         finish()
                     } else if (id == R.id.logout) {
@@ -134,11 +136,10 @@ class MainChatActivity : AppCompatActivity() {
                     val id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeVolunteersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view) {
+                    } else if (id == R.id.profile_view) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -150,10 +151,10 @@ class MainChatActivity : AppCompatActivity() {
                     } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsVolunteerActivity::class.java))
                         finish()
-                    }else if (id == R.id.logout) {
+                    } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))

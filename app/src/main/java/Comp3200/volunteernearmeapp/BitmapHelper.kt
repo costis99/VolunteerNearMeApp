@@ -23,7 +23,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-
 object BitmapHelper {
     /**
      * Demonstrates converting a [Drawable] to a [BitmapDescriptor],

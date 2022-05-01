@@ -17,6 +17,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
+/**
+ * Activity demonstrating the Home page for the Organizers. Display the nickname (if one exists) and
+ * profile picture (if one exists)
+ */
 class HomeOrganizersActivity : AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth

@@ -19,6 +19,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Activity allowing a new user to register.
+ */
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
@@ -96,11 +99,13 @@ class RegisterActivity : AppCompatActivity() {
                                     role = "Volunteer"
                                     database.child("users").child(userId).setValue("Volunteer")
                                 }
+                                //Create a new user with an Email, Nickname (set to null) and Role
                                 val user = hashMapOf(
                                     "Email ID" to emailInfo.text.toString(),
                                     "Nickname" to "",
                                     "Role" to role
                                 )
+                                //Add the new user to the users collection within firebase-firestore
                                 val documentReference: DocumentReference =
                                     fStore.collection("users").document(userId)
                                 documentReference.set(user)
@@ -125,6 +130,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
     override fun onBackPressed() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()

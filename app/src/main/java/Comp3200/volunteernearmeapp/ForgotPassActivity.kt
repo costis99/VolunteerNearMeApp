@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Activity representing the change of a user's password
+ */
 class ForgotPassActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +61,7 @@ class ForgotPassActivity : AppCompatActivity() {
                 }
             }
     }
+
     override fun onBackPressed() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()

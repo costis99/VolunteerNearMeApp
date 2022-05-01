@@ -16,6 +16,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Activity demonstrating the login page of the application. Allow users to login to their accounts.
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
@@ -78,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     val currentUser = auth.currentUser
                     //Check if user verified email used in sign up
                     if (currentUser != null && currentUser.isEmailVerified) {
-                        //Read from database if user if volunteer or organizer and show appropriate home screen
+                        //Read from database if user is volunteer or organizer and show appropriate home screen
                         database = Firebase.database.reference
                         val user = Firebase.auth.currentUser
                         val userId = user?.uid

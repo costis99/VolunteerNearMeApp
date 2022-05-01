@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="Comp3200.volunteernearmeapp">
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
@@ -16,7 +17,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${GOOGLE_MAPS_API_KEY}" />
-        <activity android:name=".LoadingScreenActivity"
+
+        <activity
+            android:name=".LoadingScreenActivity"
             android:theme="@style/Theme.LoadingScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,27 +29,31 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ForgotPassActivity"/>
-        <activity android:name=".HomeOrganizersActivity"
-            android:noHistory="true"/>
-        <activity android:name=".HomeVolunteersActivity"
-            android:noHistory="true"/>
-        <activity android:name=".ViewEventsActivity"/>
-        <activity android:name=".CreateEventActivity"/>
-        <activity android:name=".EditProfileActivity"/>
-        <activity android:name=".ProfileViewActivity"
-            android:noHistory="true"/>
-        <activity android:name=".ChangeEmailActivity"
-            android:noHistory="true"/>
-        <activity android:name=".CreateDonationActivity"/>
-        <activity android:name=".ViewDonationsActivity"/>
-        <activity android:name=".ViewChatActivity"/>
-        <activity android:name=".DeleteEventsActivity"/>
-        <activity android:name=".DeleteDonationsActivity"/>
-        <activity android:name=".InterestsActivity"/>
-        <activity android:name=".MainChatActivity"/>
-        <activity android:name=".InstructionsVolunteerActivity"/>
-        <activity android:name=".InstructionsOrganizerActivity"/>
+        <activity android:name=".ForgotPassActivity" />
+        <activity
+            android:name=".HomeOrganizersActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".HomeVolunteersActivity"
+            android:noHistory="true" />
+        <activity android:name=".ViewEventsActivity" />
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".ProfileViewActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".ChangeEmailActivity"
+            android:noHistory="true" />
+        <activity android:name=".CreateDonationActivity" />
+        <activity android:name=".ViewDonationsActivity" />
+        <activity android:name=".ViewChatActivity" />
+        <activity android:name=".DeleteEventsActivity" />
+        <activity android:name=".DeleteDonationsActivity" />
+        <activity android:name=".InterestsActivity" />
+        <activity android:name=".MainChatActivity" />
+        <activity android:name=".InstructionsVolunteerActivity" />
+        <activity android:name=".InstructionsOrganizerActivity" />
     </application>
 
 </manifest>

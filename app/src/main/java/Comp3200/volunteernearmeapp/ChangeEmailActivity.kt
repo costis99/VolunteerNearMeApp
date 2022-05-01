@@ -15,6 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Activity that demonstrates the change of the User's Email Address
+ */
 class ChangeEmailActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
@@ -45,11 +48,14 @@ class ChangeEmailActivity : AppCompatActivity() {
             newEmail.requestFocus()
             return
         }
+        // Using firebase sign in method try to sign in the user
         auth.signInWithEmailAndPassword(oldEmail.text.toString(), password.text.toString())
             .addOnCompleteListener(this) { task ->
+                //Check if signin is successful
                 if (task.isSuccessful) {
                     val user = Firebase.auth.currentUser
                     val userId = user?.uid
+                    //Update the user's email with the new one provided by the user
                     auth.currentUser!!.updateEmail(newEmail.text.toString())
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -160,7 +166,7 @@ class ChangeEmailActivity : AppCompatActivity() {
                     } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsVolunteerActivity::class.java))
                         finish()
                     } else if (id == R.id.logout) {

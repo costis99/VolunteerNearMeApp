@@ -18,7 +18,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
-class ProfileViewActivity: AppCompatActivity()  {
+/**
+ * Activity displaying to the current user their profile information (Email, Profile Picture, Nickname
+ * and Role)
+ */
+class ProfileViewActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,15 +31,16 @@ class ProfileViewActivity: AppCompatActivity()  {
         auth = Firebase.auth
         fStore = Firebase.firestore
 
-        val email : TextView = findViewById(R.id.tv_email)
-        val nickname : TextView = findViewById(R.id.tv_nickname)
-        val role : TextView = findViewById(R.id.tv_role)
+        val email: TextView = findViewById(R.id.tv_email)
+        val nickname: TextView = findViewById(R.id.tv_nickname)
+        val role: TextView = findViewById(R.id.tv_role)
         val picture: ImageView = findViewById(R.id.memberPicture)
         val userID = auth.currentUser?.uid
         if (userID != null) {
+            // Loop through the users collection and find the profile picture under Profile Pic
+            //  Using the Picasso library add the profile picture (if one exists) to it's place in the UI
             fStore.collection("users").document(userID).get().addOnSuccessListener { result ->
-
-                if(result.get("profilePic") != null) {
+                if (result.get("profilePic") != null) {
                     Picasso.get()
                         .load(result.get("profilePic").toString())
                         .fit()
@@ -54,7 +59,7 @@ class ProfileViewActivity: AppCompatActivity()  {
         resetPass.setOnClickListener {
             startActivity(Intent(this, ForgotPassActivity::class.java))
         }
-        val resetEmail:Button = findViewById(R.id.changeEmail)
+        val resetEmail: Button = findViewById(R.id.changeEmail)
         resetEmail.setOnClickListener {
             startActivity(Intent(this, ChangeEmailActivity::class.java))
         }
@@ -67,10 +72,9 @@ class ProfileViewActivity: AppCompatActivity()  {
             for (document in result) {
                 if (document.data.get("Email ID") == user?.email) {
                     email.text = "Email: ${document.data.get("Email ID") as CharSequence?}"
-                    if(document.data.get("Nickname") == null){
+                    if (document.data.get("Nickname") == null) {
                         nickname.text = "Nickname: No nickname added yet!"
-                    }
-                    else {
+                    } else {
                         nickname.text =
                             "Nickname: ${document.data.get("Nickname") as CharSequence?}"
                     }
@@ -82,6 +86,7 @@ class ProfileViewActivity: AppCompatActivity()  {
                 Log.w(TAG, "Error getting documents.", exception)
             }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val user = Firebase.auth.currentUser
         val userId = user?.uid
@@ -106,11 +111,10 @@ class ProfileViewActivity: AppCompatActivity()  {
                     var id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeOrganizersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view_org) {
+                    } else if (id == R.id.profile_view_org) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
@@ -125,13 +129,13 @@ class ProfileViewActivity: AppCompatActivity()  {
                     } else if (id == R.id.create_donation) {
                         startActivity(Intent(this, CreateDonationActivity::class.java))
                         finish()
-                    }else if (id == R.id.Chat) {
+                    } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsOrganizerActivity::class.java))
                         finish()
-                    }else if (id == R.id.logout) {
+                    } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -141,26 +145,25 @@ class ProfileViewActivity: AppCompatActivity()  {
                     var id = item.itemId
 
                     if (id == R.id.logo) {
-                    } else if (id == R.id.home_page){
+                    } else if (id == R.id.home_page) {
                         startActivity(Intent(this, HomeVolunteersActivity::class.java))
                         finish()
-                    }
-                    else if (id == R.id.profile_view) {
+                    } else if (id == R.id.profile_view) {
                         val intent = Intent(this, ProfileViewActivity::class.java)
                         startActivity(intent)
                     } else if (id == R.id.view_events) {
                         startActivity(Intent(this, ViewEventsActivity::class.java))
                         finish()
-                    }else if (id == R.id.view_donations) {
+                    } else if (id == R.id.view_donations) {
                         startActivity(Intent(this, ViewDonationsActivity::class.java))
                         finish()
                     } else if (id == R.id.Chat) {
                         startActivity(Intent(this, MainChatActivity::class.java))
                         finish()
-                    }else if (id == R.id.instructions) {
+                    } else if (id == R.id.instructions) {
                         startActivity(Intent(this, InstructionsVolunteerActivity::class.java))
                         finish()
-                    }else if (id == R.id.logout) {
+                    } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -173,6 +176,7 @@ class ProfileViewActivity: AppCompatActivity()  {
         }
         return super.onOptionsItemSelected(item)
     }
+
     override fun onBackPressed() {
         val user = Firebase.auth.currentUser
         val userId = user?.uid

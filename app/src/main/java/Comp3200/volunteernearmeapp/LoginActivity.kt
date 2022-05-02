@@ -19,7 +19,7 @@ import com.google.firebase.ktx.Firebase
 /**
  * Activity demonstrating the login page of the application. Allow users to login to their accounts.
  */
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 

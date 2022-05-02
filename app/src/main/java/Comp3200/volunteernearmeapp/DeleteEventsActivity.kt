@@ -3,7 +3,6 @@ package Comp3200.volunteernearmeapp
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -167,7 +166,7 @@ class DeleteEventsActivity : AppCompatActivity() {
                     } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }
                 } else {
@@ -192,7 +191,7 @@ class DeleteEventsActivity : AppCompatActivity() {
                     } else if (id == R.id.logout) {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }
                 }

@@ -1,12 +1,9 @@
 package Comp3200.volunteernearmeapp
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -116,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
                                         Log.w(TAG, "Error", error)
                                     }
                                 //When user has registered successfully return the user to the Login page
-                                startActivity(Intent(this, MainActivity::class.java))
+                                startActivity(Intent(this, LoginActivity::class.java))
                                 finish()
                             }
                         }
@@ -132,7 +129,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 }

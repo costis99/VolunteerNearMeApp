@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -94,7 +93,7 @@ class HomeOrganizersActivity : AppCompatActivity() {
         logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }
@@ -135,7 +134,7 @@ class HomeOrganizersActivity : AppCompatActivity() {
         else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(baseContext, "Logged out.", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return true
         }
